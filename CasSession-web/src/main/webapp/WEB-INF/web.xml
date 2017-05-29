@@ -73,11 +73,6 @@
         <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
     </filter>
 
-<!--    <filter>
-        <filter-name>sitemesh</filter-name>
-        <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
-    </filter>-->
-
 
     <filter-mapping> 
         <filter-name>CAS Authentication Filter</filter-name> 
@@ -109,11 +104,4 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
         
-<!--    <filter-mapping>
-        <filter-name>sitemesh</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>        -->
-
 </web-app>

@@ -31,7 +31,7 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
     
     private static final Logger LOGGER = Logger.getLogger(PublicActions.class);
     private static final String LOGOUT_FROM_CAS = "LOGOUT_FROM_CAS";
-    private static final String SHOW_GPNS_DASHBOARD = "gpns_dashboard";
+//    private static final String SHOW_GPNS_DASHBOARD = "gpns_dashboard";
     
     private Map<String, Object> session;
     private String locale;
@@ -42,9 +42,9 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
     private String retypedPassword;
     private boolean loginFailed;
 
-    private String email;
+//    private String email;
     private JsonStatus jsonStatus;
-    private String link;
+//    private String link;
     private ser_SystemUser userProfile;
     private String redirNamespace;
     private String redirAction;
@@ -160,26 +160,26 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
         this.loginFailed = loginFailed;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public JsonStatus getJsonStatus() {
         return jsonStatus;
     }
 
 
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
+//    public String getLink() {
+//        return link;
+//    }
+//
+//    public void setLink(String link) {
+//        this.link = link;
+//    }
 
     public ser_SystemUser getUserProfile() {
         return userProfile;
