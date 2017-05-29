@@ -26,24 +26,11 @@
     
        
     <import resource="classpath:/datasources/datasourceCore.xml" />      
-    <import resource="classpath:/datasources/datasourceLiveView.xml" />      
 
     <bean id="bean_SystemHotelBeanCreator" class="com.acentic.cloudservices.user.SystemHotel.helper.SystemHotelBeanCreator" scope="prototype"/>
     <import resource="classpath*:/spring/spring_user.xml"/>
     
     
-    <!-- manuelles Menü -->
-    <bean id="beanSystemMenuListForUserHelper" class="com.acentic.cloudservices.session.menu.SystemMenuListManual" scope="prototype">
-    </bean>
-    <bean id="beanSystemMenuListForUser" class="com.acentic.cloudservices.session.menu.SystemMenuListManualMain" scope="prototype">
-    </bean>
-    
-    <bean name="hotelSettingsBean" class="com.acentic.cloudservices.hotel.util.HotelSettings" scope="singleton">
-           <property name="HOTELBRAND_defaultDiskSpace" value="${hotelbrand.defaultdiskspace}"/>
-           <property name="HOTEL_defaultDiskSpace" value="${hotel.defaultdiskspace}"/>
-    </bean> 
-    
-
     <bean id="publicActionClass" class="com.acentic.cloudservices.session.web.PublicActions" scope ="prototype">
         <property name="casServer" value="${cas.server}"/>
     </bean>    
