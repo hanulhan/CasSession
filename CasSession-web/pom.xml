@@ -99,13 +99,6 @@
             <artifactId>user-core</artifactId>
         </dependency>
 
-<!--        <dependency>
-            <groupId>com.acentic.cloudservices</groupId>
-            <artifactId>CasSession-core</artifactId>
-        </dependency>-->
-
-
-
     </dependencies>
 
     <build>

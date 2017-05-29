@@ -42,9 +42,7 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
     private String retypedPassword;
     private boolean loginFailed;
 
-//    private String email;
     private JsonStatus jsonStatus;
-//    private String link;
     private ser_SystemUser userProfile;
     private String redirNamespace;
     private String redirAction;
@@ -160,26 +158,9 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
         this.loginFailed = loginFailed;
     }
 
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-
     public JsonStatus getJsonStatus() {
         return jsonStatus;
     }
-
-
-//    public String getLink() {
-//        return link;
-//    }
-//
-//    public void setLink(String link) {
-//        this.link = link;
-//    }
 
     public ser_SystemUser getUserProfile() {
         return userProfile;

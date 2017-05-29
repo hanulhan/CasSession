@@ -22,15 +22,14 @@
     <context:annotation-config/>
       
     <!-- SPRING POST CONSTRUCT -->
+    ${use.user.session.bean.start}
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-    
-       
     <import resource="classpath:/datasources/datasourceCore.xml" />      
-
     <bean id="bean_SystemHotelBeanCreator" class="com.acentic.cloudservices.user.SystemHotel.helper.SystemHotelBeanCreator" scope="prototype"/>
     <import resource="classpath*:/spring/spring_user.xml"/>
+    ${use.user.session.bean.end}
     
-    
+
     <bean id="publicActionClass" class="com.acentic.cloudservices.session.web.PublicActions" scope ="prototype">
         <property name="casServer" value="${cas.server}"/>
     </bean>    

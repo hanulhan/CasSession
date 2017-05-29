@@ -55,6 +55,9 @@
         <SystemSettings.defaultResendPWLinkSize>30</SystemSettings.defaultResendPWLinkSize>
         <SystemSettings.defaultLoginNameSize>8</SystemSettings.defaultLoginNameSize>
         <SystemSettings.defaultPasswordSize>8</SystemSettings.defaultPasswordSize>
+
+        <use.user.session.bean.start></use.user.session.bean.start>
+        <use.user.session.bean.end></use.user.session.bean.end>
     </properties>
 	
     <dependencyManagement>
@@ -597,22 +600,6 @@
                 <version>1.1.67</version>
                 <type>war</type>
             </dependency>
-<!--            <dependency>
-                <groupId>com.acentic.cloudservices</groupId>
-                <artifactId>liveview-core</artifactId>
-                <version>1.1.67</version>
-            </dependency>-->
-<!--            <dependency>
-                <groupId>com.acentic.cloudservices</groupId>
-                <artifactId>CasSession-core</artifactId>
-                <version>1.1.67</version>
-            </dependency>-->
-<!--            <dependency>
-                <groupId>com.acentic.cloudservices</groupId>
-                <artifactId>liveview-rest</artifactId>
-                <version>1.1.67</version>
-                <type>war</type>
-            </dependency>-->
             <dependency>
                 <groupId>com.acentic.cloudservices</groupId>
                 <artifactId>CasSession-web</artifactId>
