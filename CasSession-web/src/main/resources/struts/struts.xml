@@ -21,8 +21,6 @@
 
         <interceptors>
             <interceptor name="jsonint" class="org.apache.struts2.json.JSONInterceptor"/>
-            <interceptor name="menuintercept" class="MenuInterceptorClass" />
-            <interceptor name="roleintercept" class="RoleCheckerInterceptorClass" />
             
             <interceptor-stack name="myInterceptor">
                 <interceptor-ref name="servletConfig" />
@@ -33,8 +31,6 @@
                     <param name="excludeParams">(.*\.|^|.*|\[('|"))(c|C)lass(\.|('|")]|\[).*,roles,_,^dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,^parameters\..*,^action:.*,^method:.*</param>
                 </interceptor-ref>
                 <interceptor-ref name="actionMappingParams"/>
-                <interceptor-ref name="roleintercept" />
-                <interceptor-ref name="menuintercept" />
                 <interceptor-ref name="prepare" />
                 <interceptor-ref name="chain" />
                 <interceptor-ref name="modelDriven" />
@@ -58,7 +54,7 @@
         
     </package>
     
-    <include file="struts/struts-session.xml"/>
+<!--    <include file="struts/struts-session.xml"/>-->
     <include file="struts/struts-session_public.xml"/>
             
 </struts>

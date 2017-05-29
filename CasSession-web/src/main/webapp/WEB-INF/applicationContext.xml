@@ -84,15 +84,6 @@
     <import resource="classpath*:/spring/spring_session_web.xml"/>
 
     
-    <bean id="RoleCheckerInterceptorClass" class="com.acentic.cloudservices.session.interceptors.RoleCheckerInterceptor">
-        <property name="userSessionBean" ref="userSessionBean"/>
-    </bean>
-    
-    <bean id="MenuInterceptorClass" class="com.acentic.cloudservices.session.interceptors.MenuInterceptor">
-        <property name="userSessionBean" ref="userSessionBean"/>
-        <property name="sessionList" ref="userSessionList"/>
-    </bean>
-    
     <bean id="sessionActionClass" class="com.acentic.cloudservices.session.web.SessionActions" scope ="prototype">
         <property name="userSessionBean" ref="userSessionBean"/>
         <property name="hotelListProxy" ref="bean_SystemHotelListProxy"/>
