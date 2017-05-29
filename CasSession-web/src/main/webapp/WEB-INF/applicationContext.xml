@@ -32,7 +32,7 @@
 
     
         <!-- EMAIL SENDER -->
-    <bean id="emailsender" class="com.acentic.cloudservices.base.email.EMailSender" scope="singleton">
+<!--    <bean id="emailsender" class="com.acentic.cloudservices.base.email.EMailSender" scope="singleton">
           <constructor-arg type="java.lang.String" value="${mail.smtpHost}"/>
           <constructor-arg type="java.lang.String" value="${mail.smtpPort}"/>
           <constructor-arg type="java.lang.String" value="${mail.smtpUser}"/>
@@ -52,7 +52,7 @@
           <property name="url_resetPassword" value="${mail.url_resetPWLink}"/>
           <property name="resetPWSubject" value="Password reset - Acentic Cloud Services"/>
           
-    </bean>    
+    </bean>    -->
             
 <!--    <import resource="classpath*:spring/spring_session.xml"/>-->
     <import resource="classpath*:/spring/spring_base.xml" />
@@ -100,13 +100,7 @@
     </bean>    
 
     <bean id="publicActionClass" class="com.acentic.cloudservices.session.web.PublicActions" scope ="prototype">
-        <property name="defaultResendPWLinkSize" value="${SystemSettings.defaultResendPWLinkSize}"/>
-        <property name="defaultLoginNameSize" value="${SystemSettings.defaultLoginNameSize}"/>
-        <property name="defaultPasswordSize" value="${SystemSettings.defaultPasswordSize}"/>
         <property name="casServer" value="${cas.server}"/>
-        <property name="daoInterface" ref="SessionDAOImpl"/>
-        <property name="emailSender" ref="emailsender"/>
-        <property name="userSessionBean" ref="userSessionBean"/>
     </bean>    
       
 </beans>

@@ -6,11 +6,9 @@
 package com.acentic.cloudservices.session.web;
 
 import com.acentic.cloudservices.base.SystemMenu.beans.SERSystemMenu;
-import com.acentic.cloudservices.base.email.EMailSender;
 import com.acentic.cloudservices.base.util.SystemRoleDef;
 import com.acentic.cloudservices.hotel.SystemHotel.beans.SystemHotelBean;
 import com.acentic.cloudservices.hotel.util.SpringHotelBeansDef;
-import com.acentic.cloudservices.session.dao.SessionDAOInterface;
 import com.acentic.cloudservices.session.user.userSession;
 import com.acentic.cloudservices.session.util.SpringSessionBeansDef;
 import com.acentic.cloudservices.user.SystemUser.beans.SystemUserBean;
@@ -43,14 +41,12 @@ import org.springframework.context.ApplicationContextAware;
 public class PublicActions extends ActionSupport implements SessionAware, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
-    private userSession userSessionBean;
     
     private static final Logger LOGGER = Logger.getLogger(PublicActions.class);
     private static final String LOGOUT_FROM_CAS = "LOGOUT_FROM_CAS";
     private static final String SHOW_GPNS_DASHBOARD = "gpns_dashboard";
     
     private Map<String, Object> session;
-    private SessionDAOInterface daoInterface;
     private String locale;
     private String casServer;
 
@@ -61,12 +57,8 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
 
     private String email;
     private JsonStatus jsonStatus;
-    private int defaultResendPWLinkSize;
-    private EMailSender emailSender;
     private String link;
     private ser_SystemUser userProfile;
-    private int defaultLoginNameSize;
-    private int defaultPasswordSize;
     private String redirNamespace;
     private String redirAction;
     
@@ -157,13 +149,6 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
         this.casServer = casServer;
     }
 
-    public SessionDAOInterface getDaoInterface() {
-        return daoInterface;
-    }
-
-    public void setDaoInterface(SessionDAOInterface daoInterface) {
-        this.daoInterface = daoInterface;
-    }
 
     public String getUsername() {
         return username;
@@ -201,21 +186,6 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
         return jsonStatus;
     }
 
-    public int getDefaultResendPWLinkSize() {
-        return defaultResendPWLinkSize;
-    }
-
-    public void setDefaultResendPWLinkSize(int defaultResendPWLinkSize) {
-        this.defaultResendPWLinkSize = defaultResendPWLinkSize;
-    }
-
-    public EMailSender getEmailSender() {
-        return emailSender;
-    }
-
-    public void setEmailSender(EMailSender emailSender) {
-        this.emailSender = emailSender;
-    }
 
     public String getLink() {
         return link;
@@ -233,28 +203,12 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
         this.userProfile = userProfile;
     }
 
-    public int getDefaultLoginNameSize() {
-        return defaultLoginNameSize;
-    }
-
-    public void setDefaultLoginNameSize(int defaultLoginNameSize) {
-        this.defaultLoginNameSize = defaultLoginNameSize;
-    }
-
     public String getRetypedPassword() {
         return retypedPassword;
     }
 
     public void setRetypedPassword(String retypedPassword) {
         this.retypedPassword = retypedPassword;
-    }
-
-    public int getDefaultPasswordSize() {
-        return defaultPasswordSize;
-    }
-
-    public void setDefaultPasswordSize(int defaultPasswordSize) {
-        this.defaultPasswordSize = defaultPasswordSize;
     }
 
     public String getRedirNamespace() {
@@ -293,13 +247,5 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
         return serLoggedInUser;
     }
 
-    public userSession getUserSessionBean() {
-        return userSessionBean;
-    }
-
-    public void setUserSessionBean(userSession userSessionBean) {
-        this.userSessionBean = userSessionBean;
-    }
-
-    
+   
 }
