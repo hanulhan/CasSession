@@ -12,9 +12,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <listener>
+<!--    <listener>
         <listener-class>com.acentic.cloudservices.session.listener.userSessionListener</listener-class>
-    </listener>
+    </listener>-->
         
     <welcome-file-list>
         <welcome-file>session/doShowWelcome.action</welcome-file>
@@ -56,30 +56,9 @@
     </filter> 
     ${login.mode.cas.enabled.end}  
 
-    <!--   Login Filter ACS -->
-    ${login.mode.acs.enabled.start}
-    <filter> 
-        <filter-name>acsLoginFilter</filter-name> 
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-        <init-param>
-            <param-name>targetFilterLifecycle</param-name>
-            <param-value>true</param-value>
-        </init-param>        
-        <init-param>
-            <description>exclude path from filter</description>
-            <param-name>excludePattern</param-name>
-            <param-value>.*\b/(public|rest|js|images|vendors|css)/\b.*</param-value>
-        </init-param>
-        <init-param>
-            <description>default login url for redirect</description>
-            <param-name>loginUrl</param-name>
-            <param-value>/${acs.server.context}/public/doAccessLoginUser.action</param-value>
-        </init-param>       
-    </filter> 
-    ${login.mode.acs.enabled.end}
     
     <!--  Locale check Filter    -->
-    <filter> 
+<!--    <filter> 
         <filter-name>localeFilter</filter-name> 
         <filter-class>com.acentic.cloudservices.session.filter.LocaleFilter</filter-class>
         <init-param>
@@ -92,9 +71,9 @@
             <param-name>defaultLocale</param-name>
             <param-value>EN_GB</param-value>
         </init-param>       
-    </filter> 
+    </filter> -->
     
-    <filter> 
+<!--    <filter> 
         <filter-name>expiresFilter</filter-name> 
         <filter-class>com.acentic.cloudservices.session.filter.ExpiresFilter</filter-class>
         <init-param>
@@ -102,7 +81,7 @@
             <param-name>secs</param-name>
             <param-value>1</param-value>
         </init-param>       
-    </filter> 
+    </filter> -->
     
 
     <filter>
@@ -138,7 +117,7 @@
 
     <!--   FILTER MAPPINGS  -->
     
-    <filter-mapping> 
+<!--    <filter-mapping> 
         <filter-name>expiresFilter</filter-name> 
         <url-pattern>/lib/contentManager/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
@@ -152,12 +131,12 @@
         <filter-name>expiresFilter</filter-name> 
         <url-pattern>/lib/coreui/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
+    </filter-mapping>-->
     
-    <filter-mapping>
+<!--    <filter-mapping>
         <filter-name>localeFilter</filter-name>
         <url-pattern>/*</url-pattern> 
-    </filter-mapping>
+    </filter-mapping>-->
     
 
 
