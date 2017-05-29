@@ -540,41 +540,41 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
             return ERROR;
         }
 
-        if (systemUser.isTempUser()) {
-            boolean confValid = false;
-            for (int i = 0; i < systemUser.getentSystemUser().getConferences().size(); i++) {
-                if ((!systemUser.getentSystemUser().getConferences().get(i).isDeleted())
-                        && (systemUser.getentSystemUser().getConferences().get(i).getEndDate().after(new Date()))) {
-                    confValid = true;
-                    break;
-                }
-            }
-            if (!confValid) {
-                LOGGER.log(Level.ERROR, "unable to login  temp user, conference not valid anymore");
-                internalDoLogout();
-                return ERROR;
-            }
-        }
+//        if (systemUser.isTempUser()) {
+//            boolean confValid = false;
+//            for (int i = 0; i < systemUser.getentSystemUser().getConferences().size(); i++) {
+//                if ((!systemUser.getentSystemUser().getConferences().get(i).isDeleted())
+//                        && (systemUser.getentSystemUser().getConferences().get(i).getEndDate().after(new Date()))) {
+//                    confValid = true;
+//                    break;
+//                }
+//            }
+//            if (!confValid) {
+//                LOGGER.log(Level.ERROR, "unable to login  temp user, conference not valid anymore");
+//                internalDoLogout();
+//                return ERROR;
+//            }
+//        }
 
-        if ((locale != null) && (locale.isEmpty())) {
-            LOGGER.log(Level.DEBUG, "locale parameter detected, setting locale to " + locale);
-            Locale newlocale = localefromString(locale);
-            ActionContext.getContext().setLocale(newlocale);
-            HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-            HttpSession session = request.getSession(true);
-            session.setAttribute(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, newlocale);
-        }
+//        if ((locale != null) && (locale.isEmpty())) {
+//            LOGGER.log(Level.DEBUG, "locale parameter detected, setting locale to " + locale);
+//            Locale newlocale = localefromString(locale);
+//            ActionContext.getContext().setLocale(newlocale);
+//            HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+//            HttpSession session = request.getSession(true);
+//            session.setAttribute(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, newlocale);
+//        }
 
         internalDoLogin(systemUser);
 
-        if (systemUser.hasRole(SystemRoleDef.ROLE_GPNS_PROPERTY_DASHBOARD)) {
-            userSession loggedInUser = (userSession) applicationContext.getBean(SpringSessionBeansDef.USER_SESSION_BEAN);
-            if (loggedInUser.getSelectedHotel() != null) {
-                if ((loggedInUser.getSelectedHotel().isForeignSystem())
-                    || (daoInterface.isGpnsHotel(loggedInUser.getSelectedHotel().getIdent())))
-                   return SHOW_GPNS_DASHBOARD;
-            }
-        }
+//        if (systemUser.hasRole(SystemRoleDef.ROLE_GPNS_PROPERTY_DASHBOARD)) {
+//            userSession loggedInUser = (userSession) applicationContext.getBean(SpringSessionBeansDef.USER_SESSION_BEAN);
+//            if (loggedInUser.getSelectedHotel() != null) {
+//                if ((loggedInUser.getSelectedHotel().isForeignSystem())
+//                    || (daoInterface.isGpnsHotel(loggedInUser.getSelectedHotel().getIdent())))
+//                   return SHOW_GPNS_DASHBOARD;
+//            }
+//        }
 
         
         
