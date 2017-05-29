@@ -96,24 +96,12 @@
         </dependency>
         <dependency>
             <groupId>com.acentic.cloudservices</groupId>
-            <artifactId>base-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.acentic.cloudservices</groupId>
             <artifactId>user-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.acentic.cloudservices</groupId>
-            <artifactId>hotel-core</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.acentic.cloudservices</groupId>
             <artifactId>CasSession-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.acentic.cloudservices</groupId>
-            <artifactId>user-web</artifactId>
-            <type>war</type>
         </dependency>
 
 

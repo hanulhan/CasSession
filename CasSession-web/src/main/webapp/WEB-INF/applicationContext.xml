@@ -29,34 +29,6 @@
     <import resource="classpath:/datasources/datasourceLiveView.xml" />      
 
     <bean id="bean_SystemHotelBeanCreator" class="com.acentic.cloudservices.user.SystemHotel.helper.SystemHotelBeanCreator" scope="prototype"/>
-
-    
-        <!-- EMAIL SENDER -->
-<!--    <bean id="emailsender" class="com.acentic.cloudservices.base.email.EMailSender" scope="singleton">
-          <constructor-arg type="java.lang.String" value="${mail.smtpHost}"/>
-          <constructor-arg type="java.lang.String" value="${mail.smtpPort}"/>
-          <constructor-arg type="java.lang.String" value="${mail.smtpUser}"/>
-          <constructor-arg type="java.lang.String" value="${mail.smtpPassword}"/>
-          <constructor-arg type="java.lang.String" value="${mail.smtpName}"/>
-          
-          <property name="template_authLink" value="/templates/register_user.html"/>
-          <property name="url_authentication" value="${mail.url_reauthentication}"/>
-          <property name="authSubject" value="Welcome to Acentic Cloud Services"/>
-
-
-          <property name="template_sendReauthLink" value="/templates/resendpw.html"/>
-          <property name="url_reauthentication" value="${mail.url_reauthentication}"/>
-          <property name="reauthSubject" value="Password reset - Acentic Cloud Services"/>
-
-          <property name="template_sendResendPWLink" value="/templates/requestpw.html"/>
-          <property name="url_resetPassword" value="${mail.url_resetPWLink}"/>
-          <property name="resetPWSubject" value="Password reset - Acentic Cloud Services"/>
-          
-    </bean>    -->
-            
-<!--    <import resource="classpath*:spring/spring_session.xml"/>-->
-    <import resource="classpath*:/spring/spring_base.xml" />
-    <import resource="classpath*:/spring/spring_hotel.xml" />
     <import resource="classpath*:/spring/spring_user.xml"/>
     
     
@@ -71,24 +43,6 @@
            <property name="HOTEL_defaultDiskSpace" value="${hotel.defaultdiskspace}"/>
     </bean> 
     
-    <!-- USER SESSION -->
-    
-<!--    <bean name="userSessionSettingsBean" class="com.acentic.cloudservices.session.util.userSessionSettings" scope="singleton">
-         <property name="webTimeOut" value="${SystemSettings.WebTimeOut}"/>
-         <property name="sessionTempPath" value="${SystemSettings.SessionTempPath}"/>
-    </bean>    -->
-    
-<!--    <bean name="userSessionList" class="com.acentic.cloudservices.session.user.sessionUserOverview" scope="singleton"/>-->
-    
-<!--    <import resource="classpath*:/spring/spring_session.xml"/>
-    <import resource="classpath*:/spring/spring_session_web.xml"/>-->
-
-    
-<!--    <bean id="sessionActionClass" class="com.acentic.cloudservices.session.web.SessionActions" scope ="prototype">
-        <property name="userSessionBean" ref="userSessionBean"/>
-        <property name="hotelListProxy" ref="bean_SystemHotelListProxy"/>
-        <property name="userSessions" ref="userSessionList"/>
-    </bean>    -->
 
     <bean id="publicActionClass" class="com.acentic.cloudservices.session.web.PublicActions" scope ="prototype">
         <property name="casServer" value="${cas.server}"/>
