@@ -8,7 +8,7 @@
         
     <package name="public" namespace="/public" extends="default">
 
-        <action name="getLoggedInUserInformation" class="publicActionClass" method="doGetLoggedInUserInformation">	
+<!--        <action name="getLoggedInUserInformation" class="publicActionClass" method="doGetLoggedInUserInformation">	
             <result type="json">
                 <param name="includeProperties">serLoggedInUser.*</param>
             </result>     
@@ -115,7 +115,7 @@
             </result>
             <result name="error">/public/login_error.jsp</result>     
             <result name="input">/public/login.jsp</result>     
-        </action>		
+        </action>		-->
         
                         
         <action name="doLoginCasUser" class="publicActionClass" method="doLoginCasUser">	
