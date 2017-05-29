@@ -85,18 +85,22 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
         try {
             HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
             AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
-            @SuppressWarnings("rawtypes")
-            Map attributes = principal.getAttributes();
-            String uid = (String) attributes.get("uid");
-            Long lUid = Long.valueOf(uid);
-            systemUser = (SystemUserBean) applicationContext.getBean(SpringUserBeansDef.SystemUserBean, lUid);
-            if (!systemUser.isLoaded()) {
-                LOGGER.log(Level.ERROR, "unable to login cas user with id " + lUid);
-                internalDoLogout();
-                return ERROR;
-            }
+            if (principal == null) {
+                throw new Exception("principal is null");
+            } else {
+                @SuppressWarnings("rawtypes")
+                Map attributes = principal.getAttributes();
+                String uid = (String) attributes.get("uid");
+                Long lUid = Long.valueOf(uid);
+                systemUser = (SystemUserBean) applicationContext.getBean(SpringUserBeansDef.SystemUserBean, lUid);
+                if (!systemUser.isLoaded()) {
+                    LOGGER.log(Level.ERROR, "unable to login cas user with id " + lUid);
+                    internalDoLogout();
+                    return ERROR;
+                }
 
-            LOGGER.log(Level.DEBUG, "request with local=" + request.getLocale().toString());
+                LOGGER.log(Level.DEBUG, "request with local=" + request.getLocale().toString());
+            }
         } catch (Exception e) {
             LOGGER.log(Level.ERROR, "unable to login cas user", e);
             internalDoLogout();
