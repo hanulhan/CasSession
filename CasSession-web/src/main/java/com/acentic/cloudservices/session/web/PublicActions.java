@@ -95,7 +95,6 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
                 systemUser = (SystemUserBean) applicationContext.getBean(SpringUserBeansDef.SystemUserBean, lUid);
                 if (!systemUser.isLoaded()) {
                     LOGGER.log(Level.ERROR, "unable to login cas user with id " + lUid);
-                    internalDoLogout();
                     return ERROR;
                 }
 
@@ -103,11 +102,8 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
             }
         } catch (Exception e) {
             LOGGER.log(Level.ERROR, "unable to login cas user", e);
-            internalDoLogout();
             return ERROR;
         }
-
-        internalDoLogin(systemUser);
 
         return SUCCESS;
     }
@@ -131,7 +127,6 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
         LOGGER.log(Level.TRACE, "do logout user");
         logoutHeadline = this.getText("session.logout.headline");
         logoutReLogin = this.getText("session.logout.login") ;
-        internalDoLogout();
 
         if (!StringUtils.isEmpty(casServer)) {
             LOGGER.log(Level.DEBUG, "do logout user from cas server, sending redirect");
@@ -152,51 +147,6 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
     @Override
     public void setSession(Map<String, Object> map) {
         this.session = map;
-    }
-
-    private void internalDoLogout() {
-        userSession loggedInUser = (userSession) applicationContext.getBean(SpringSessionBeansDef.USER_SESSION_BEAN);
-        if (loggedInUser.getId() != 0) {
-            daoInterface.unlockCMProjects(loggedInUser.getId());
-            daoInterface.unlockEdgeProjects(loggedInUser.getId());
-            daoInterface.unlockConfProjects(loggedInUser.getId());
-        }
-
-        loggedInUser.setSelectedHotel(null);
-        loggedInUser.setLoggedInUser(null);
-
-        HttpServletRequest request = ServletActionContext.getRequest();
-        HttpSession sessionTmp = request.getSession(true);
-        sessionTmp.invalidate();
-    }
-
-    private void internalDoLogin(SystemUserBean systemUser) {
-
-        HttpServletRequest request = ServletActionContext.getRequest();
-        HttpSession sessiontmp = request.getSession(true);
-        systemUser.getentSystemUser().setLastWebAction(new Date());
-        systemUser.getentSystemUser().setSessionId(sessiontmp.getId());
-        systemUser.getentSystemUser().setLastlogin(new Date());
-        systemUser.getAssignedHotels().getItems().size();
-        systemUser.getAssignedRoles().getItems().size();
-        for (SystemUserGroupBean group : systemUser.getAssignedGroups().getItems()) {
-            group.getAssignedRoles().getItems().size();
-        }
-        systemUser.getMessages().getItems().size();
-
-        userSession loggedInUser = (userSession) applicationContext.getBean(SpringSessionBeansDef.USER_SESSION_BEAN);
-        loggedInUser.setLoggedInUser(systemUser);
-
-        if ((systemUser.getLastIdent() != null) && (!systemUser.getLastIdent().isEmpty()) && (loggedInUser.canSeeIdent(systemUser.getLastIdent()))) {
-            String hotelIdent = systemUser.getLastIdent();
-            SystemHotelBean hotel = (SystemHotelBean) applicationContext.getBean(SpringHotelBeansDef.SystemHotelBean, hotelIdent);
-            hotel.getCMLicences().getItems().size();
-            hotel.getLicences().getItems().size();
-            if (hotel.getHotelbrand() != null)
-               hotel.getHotelbrand().getId();
-            loggedInUser.setSelectedHotel(hotel);
-        }
-
     }
 
     public String getCasServer() {
