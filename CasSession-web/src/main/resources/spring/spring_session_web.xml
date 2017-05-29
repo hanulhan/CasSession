@@ -19,8 +19,8 @@
 
 
     
-    <bean id="acsLoginFilter"  class="com.acentic.cloudservices.session.filter.LoginFilter">
+<!--    <bean id="acsLoginFilter"  class="com.acentic.cloudservices.session.filter.LoginFilter">
         <property name="userSessionBean" ref="userSessionBean"/>
-    </bean>
+    </bean>-->
     
 </beans>
