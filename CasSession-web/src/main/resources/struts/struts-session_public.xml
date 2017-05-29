@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant  name="struts.custom.i18n.resources" value="i18n/session,i18n/datatable" />
+        
+    <package name="public" namespace="/public" extends="default">
+
+        <action name="getLoggedInUserInformation" class="publicActionClass" method="doGetLoggedInUserInformation">	
+            <result type="json">
+                <param name="includeProperties">serLoggedInUser.*</param>
+            </result>     
+        </action>		
+
+        
+        
+        <action name="doSwitchSystemUser" class="publicActionClass" method="doSwitchSystemUser">
+            <result name="error" type="redirectAction">
+                <param name="actionName">doShowWelcome</param>
+                <param name="namespace">/session</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doShowWelcome</param>
+                <param name="namespace">/session</param>
+            </result>
+        </action>
+
+        
+        <action name="setLocale" class="publicActionClass" method="doSetLocale">	
+            <result name="success" type="redirectAction">
+                <param name="actionName">${redirAction}</param>
+                <param name="namespace">${redirNamespace}</param>
+            </result>
+        </action>        
+                
+        <action name="setUserData" class="publicActionClass" method="setUserData">	
+            <result name="success" type="json">
+                <param name="ignoreHierarchy">false</param>
+                <param name="includeProperties">jsonStatus.*,userProfile.*</param>
+            </result>     
+        </action>        
+
+
+        <action name="getUserData" class="publicActionClass" method="getUserData">	
+            <result name="success" type="json">
+                <param name="ignoreHierarchy">false</param>
+                <param name="includeProperties">jsonStatus.*,userProfile.*</param>
+            </result>     
+        </action>        
+        
+        <action name="doUserWantResetPassword" class="publicActionClass" method="doUserWantResetPassword">	
+            <result name="success">/public/request_email.jsp</result>     
+        </action>		
+
+        <action name="accessPasswordResetConfirm" class="publicActionClass" method="accessPasswordResetConfirm">	
+            <result name="success">/public/reset_pw_request.jsp</result>     
+        </action>		
+        
+        <action name="doTryResetPassword" class="publicActionClass" method="doTryResetPassword">	
+            <result name="success" type="json">
+                <param name="ignoreHierarchy">false</param>
+                <param name="includeProperties">jsonStatus.*</param>
+            </result>     
+        </action>		
+        
+        <action name="doUserResetPasswordByEMail" class="publicActionClass" method="doUserResetPasswordByEMail">
+            <result name="error" type="redirectAction">
+                <param name="actionName">doShowWelcome</param>
+                <param name="namespace">/session</param>
+            </result>
+            <result name="success">/public/resend_pw_ack.jsp</result>
+        </action>
+        
+        
+        <action name="doUserTryLoginUnregistred" class="publicActionClass" method="doUserTryLoginUnregistred">
+            <result name="error" type="redirectAction">
+                <param name="actionName">doShowWelcome</param>
+                <param name="namespace">/session</param>
+            </result>
+            <result name="success">/public/login_unregistered.jsp</result>
+        </action>
+        
+        <action name="doUserLoginUnregistered" class="publicActionClass" method="doUserLoginUnregistered">
+            <result name="input" type="redirectAction">
+                <param name="actionName">doUserTryLoginUnregistred</param>
+                <param name="namespace">/public</param>
+                <param name="link">${link}</param>
+            </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">doShowWelcome</param>
+                <param name="namespace">/session</param>
+            </result>
+            <result name="success">/public/edit_profile.jsp</result>     
+        </action>
+        
+        
+        <action name="doShowForbidden" class="publicActionClass" method="doShowForbidden">	
+            <result name="success">/public/forbidden.jsp</result>     
+        </action>		
+        
+        <action name="doAccessLoginUser" class="publicActionClass" method="doAccessLoginUser">	
+            <result name="success">/public/login.jsp</result>     
+        </action>		
+
+        <action name="doLoginUser" class="publicActionClass" method="doLoginUser">	
+            <result name="gpns_dashboard" type="redirectAction">
+                <param name="actionName">accessDashBoard</param>
+                <param name="namespace">/gpns</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doShowWelcome</param>
+                <param name="namespace">/session</param>
+            </result>
+            <result name="error">/public/login_error.jsp</result>     
+            <result name="input">/public/login.jsp</result>     
+        </action>		
+        
+                        
+        <action name="doLoginCasUser" class="publicActionClass" method="doLoginCasUser">	
+            <result name="gpns_dashboard" type="redirectAction">
+                <param name="actionName">accessDashBoard</param>
+                <param name="namespace">/gpns</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">doShowWelcome</param>
+                <param name="namespace">/session</param>
+            </result>
+            <result name="error">/public/login_error.jsp</result>     
+        </action>		
+        
+        <action name="doLogout" class="publicActionClass" method="doLogout">	
+            <result name="LOGOUT_FROM_CAS" type="redirect">${casServer}/logout</result>
+            <result name="success">/public/logout.jsp</result>     
+    
+        </action>		
+        
+                
+
+    </package>	
+</struts>

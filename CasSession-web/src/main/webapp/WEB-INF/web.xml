@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>Session</display-name>
+	
+       
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.acentic.cloudservices.session.listener.userSessionListener</listener-class>
+    </listener>
+        
+    <welcome-file-list>
+        <welcome-file>session/doShowWelcome.action</welcome-file>
+    </welcome-file-list>
+
+    <!--   Login Filter CAS -->
+    ${login.mode.cas.enabled.start}
+    <filter> 
+        <filter-name>CAS Authentication Filter</filter-name> 
+        <filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class> 
+        <init-param> 
+            <param-name>casServerLoginUrl</param-name> 
+            <param-value>${cas.server}/login</param-value>
+        </init-param>
+        <init-param> 
+            <param-name>service</param-name> 
+            <param-value>${acs.server.name}/${acs.server.context}/public/doLoginCasUser.action</param-value>
+        </init-param> 
+        <init-param>
+            <param-name>ignorePattern</param-name>
+            <param-value>\/(public|rest|js|images|vendors|css)\/</param-value>
+        </init-param>
+    </filter> 
+    <filter>
+        <filter-name>CAS Validation Filter</filter-name>
+        <filter-class>org.jasig.cas.client.validation.Cas30ProxyReceivingTicketValidationFilter</filter-class>
+        <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+            <param-value>${cas.server}</param-value>
+        </init-param> 
+        <init-param> 
+            <param-name>serverName</param-name> 
+            <param-value>${acs.server.name}</param-value>
+        </init-param> 
+    </filter>  
+    <filter> 
+        <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name> 
+        <filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class> 
+    </filter> 
+    ${login.mode.cas.enabled.end}  
+
+    <!--   Login Filter ACS -->
+    ${login.mode.acs.enabled.start}
+    <filter> 
+        <filter-name>acsLoginFilter</filter-name> 
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>        
+        <init-param>
+            <description>exclude path from filter</description>
+            <param-name>excludePattern</param-name>
+            <param-value>.*\b/(public|rest|js|images|vendors|css)/\b.*</param-value>
+        </init-param>
+        <init-param>
+            <description>default login url for redirect</description>
+            <param-name>loginUrl</param-name>
+            <param-value>/${acs.server.context}/public/doAccessLoginUser.action</param-value>
+        </init-param>       
+    </filter> 
+    ${login.mode.acs.enabled.end}
+    
+    <!--  Locale check Filter    -->
+    <filter> 
+        <filter-name>localeFilter</filter-name> 
+        <filter-class>com.acentic.cloudservices.session.filter.LocaleFilter</filter-class>
+        <init-param>
+            <description>available locale in project</description>
+            <param-name>availableLocale</param-name>
+            <param-value>EN_GB,EN_US,DE</param-value>
+        </init-param>       
+        <init-param>
+            <description>default locale to set</description>
+            <param-name>defaultLocale</param-name>
+            <param-value>EN_GB</param-value>
+        </init-param>       
+    </filter> 
+    
+    <filter> 
+        <filter-name>expiresFilter</filter-name> 
+        <filter-class>com.acentic.cloudservices.session.filter.ExpiresFilter</filter-class>
+        <init-param>
+            <description>Add an Expires Header</description>
+            <param-name>secs</param-name>
+            <param-value>1</param-value>
+        </init-param>       
+    </filter> 
+    
+
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>struts-default.xml,struts-plugin.xml,struts/struts.xml</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>oemInViewFilterCorer</filter-name>
+        <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+        <init-param>
+            <param-name>entityManagerFactoryBeanName</param-name>
+            <param-value>entityManagerFactoryCore</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>requestContextFilter</filter-name>
+        <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+    </filter>
+
+
+
+
+    <!--   FILTER MAPPINGS  -->
+    
+    <filter-mapping> 
+        <filter-name>expiresFilter</filter-name> 
+        <url-pattern>/lib/contentManager/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping> 
+        <filter-name>expiresFilter</filter-name> 
+        <url-pattern>/lib/assetManager/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter-mapping> 
+        <filter-name>expiresFilter</filter-name> 
+        <url-pattern>/lib/coreui/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>localeFilter</filter-name>
+        <url-pattern>/*</url-pattern> 
+    </filter-mapping>
+    
+
+
+    ${login.mode.cas.enabled.start}  
+    <filter-mapping> 
+        <filter-name>CAS Authentication Filter</filter-name> 
+        <url-pattern>/*</url-pattern> 
+    </filter-mapping> 
+    <filter-mapping> 
+        <filter-name>CAS Validation Filter</filter-name> 
+        <url-pattern>/*</url-pattern> 
+    </filter-mapping> 
+    <filter-mapping> 
+        <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name> 
+        <url-pattern>/*</url-pattern> 
+    </filter-mapping>
+    ${login.mode.cas.enabled.end}  
+
+    ${login.mode.acs.enabled.start}
+    <filter-mapping>
+        <filter-name>acsLoginFilter</filter-name>
+        <url-pattern>/*</url-pattern> 
+    </filter-mapping>
+    ${login.mode.acs.enabled.end}
+
+    <filter-mapping>
+        <filter-name>requestContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>oemInViewFilterCorer</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+        
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>        
+
+</web-app>

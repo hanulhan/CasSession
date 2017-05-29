@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:aop="http://www.springframework.org/schema/aop"   
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xmlns:task="http://www.springframework.org/schema/task"
+   xsi:schemaLocation="
+      http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/context 
+      http://www.springframework.org/schema/context/spring-context-3.0.xsd
+      http://www.springframework.org/schema/tx 
+      http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+      http://www.springframework.org/schema/aop 
+      http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+      http://www.springframework.org/schema/task
+      http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+
+    <context:annotation-config/>
+      
+    <!-- SPRING POST CONSTRUCT -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    
+       
+    <import resource="classpath:/datasources/datasourceCore.xml" />      
+    <import resource="classpath:/datasources/datasourceLiveView.xml" />      
+
+    <bean id="bean_SystemHotelBeanCreator" class="com.acentic.cloudservices.user.SystemHotel.helper.SystemHotelBeanCreator" scope="prototype"/>
+
+    
+        <!-- EMAIL SENDER -->
+    <bean id="emailsender" class="com.acentic.cloudservices.base.email.EMailSender" scope="singleton">
+          <constructor-arg type="java.lang.String" value="${mail.smtpHost}"/>
+          <constructor-arg type="java.lang.String" value="${mail.smtpPort}"/>
+          <constructor-arg type="java.lang.String" value="${mail.smtpUser}"/>
+          <constructor-arg type="java.lang.String" value="${mail.smtpPassword}"/>
+          <constructor-arg type="java.lang.String" value="${mail.smtpName}"/>
+          
+          <property name="template_authLink" value="/templates/register_user.html"/>
+          <property name="url_authentication" value="${mail.url_reauthentication}"/>
+          <property name="authSubject" value="Welcome to Acentic Cloud Services"/>
+
+
+          <property name="template_sendReauthLink" value="/templates/resendpw.html"/>
+          <property name="url_reauthentication" value="${mail.url_reauthentication}"/>
+          <property name="reauthSubject" value="Password reset - Acentic Cloud Services"/>
+
+          <property name="template_sendResendPWLink" value="/templates/requestpw.html"/>
+          <property name="url_resetPassword" value="${mail.url_resetPWLink}"/>
+          <property name="resetPWSubject" value="Password reset - Acentic Cloud Services"/>
+          
+    </bean>    
+            
+<!--    <import resource="classpath*:spring/spring_session.xml"/>-->
+    <import resource="classpath*:/spring/spring_base.xml" />
+    <import resource="classpath*:/spring/spring_hotel.xml" />
+    <import resource="classpath*:/spring/spring_user.xml"/>
+    
+    
+    <!-- manuelles Menü -->
+    <bean id="beanSystemMenuListForUserHelper" class="com.acentic.cloudservices.session.menu.SystemMenuListManual" scope="prototype">
+    </bean>
+    <bean id="beanSystemMenuListForUser" class="com.acentic.cloudservices.session.menu.SystemMenuListManualMain" scope="prototype">
+    </bean>
+    
+    <bean name="hotelSettingsBean" class="com.acentic.cloudservices.hotel.util.HotelSettings" scope="singleton">
+           <property name="HOTELBRAND_defaultDiskSpace" value="${hotelbrand.defaultdiskspace}"/>
+           <property name="HOTEL_defaultDiskSpace" value="${hotel.defaultdiskspace}"/>
+    </bean> 
+    
+    <!-- USER SESSION -->
+    
+    <bean name="userSessionSettingsBean" class="com.acentic.cloudservices.session.util.userSessionSettings" scope="singleton">
+         <property name="webTimeOut" value="${SystemSettings.WebTimeOut}"/>
+         <property name="sessionTempPath" value="${SystemSettings.SessionTempPath}"/>
+    </bean>    
+    
+    <bean name="userSessionList" class="com.acentic.cloudservices.session.user.sessionUserOverview" scope="singleton"/>
+    
+    <import resource="classpath*:/spring/spring_session.xml"/>
+    <import resource="classpath*:/spring/spring_session_web.xml"/>
+
+    
+    <bean id="RoleCheckerInterceptorClass" class="com.acentic.cloudservices.session.interceptors.RoleCheckerInterceptor">
+        <property name="userSessionBean" ref="userSessionBean"/>
+    </bean>
+    
+    <bean id="MenuInterceptorClass" class="com.acentic.cloudservices.session.interceptors.MenuInterceptor">
+        <property name="userSessionBean" ref="userSessionBean"/>
+        <property name="sessionList" ref="userSessionList"/>
+    </bean>
+    
+    <bean id="sessionActionClass" class="com.acentic.cloudservices.session.web.SessionActions" scope ="prototype">
+        <property name="userSessionBean" ref="userSessionBean"/>
+        <property name="hotelListProxy" ref="bean_SystemHotelListProxy"/>
+        <property name="userSessions" ref="userSessionList"/>
+    </bean>    
+
+    <bean id="publicActionClass" class="com.acentic.cloudservices.session.web.PublicActions" scope ="prototype">
+        <property name="defaultResendPWLinkSize" value="${SystemSettings.defaultResendPWLinkSize}"/>
+        <property name="defaultLoginNameSize" value="${SystemSettings.defaultLoginNameSize}"/>
+        <property name="defaultPasswordSize" value="${SystemSettings.defaultPasswordSize}"/>
+        <property name="casServer" value="${cas.server}"/>
+        <property name="daoInterface" ref="SessionDAOImpl"/>
+        <property name="emailSender" ref="emailsender"/>
+        <property name="userSessionBean" ref="userSessionBean"/>
+    </bean>    
+      
+</beans>
