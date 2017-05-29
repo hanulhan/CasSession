@@ -11,7 +11,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>CasSession-core</module>
         <module>CasSession-web</module>
     </modules>
 
@@ -598,22 +597,22 @@
                 <version>1.1.67</version>
                 <type>war</type>
             </dependency>
-            <dependency>
+<!--            <dependency>
                 <groupId>com.acentic.cloudservices</groupId>
                 <artifactId>liveview-core</artifactId>
                 <version>1.1.67</version>
-            </dependency>
-            <dependency>
+            </dependency>-->
+<!--            <dependency>
                 <groupId>com.acentic.cloudservices</groupId>
                 <artifactId>CasSession-core</artifactId>
                 <version>1.1.67</version>
-            </dependency>
-            <dependency>
+            </dependency>-->
+<!--            <dependency>
                 <groupId>com.acentic.cloudservices</groupId>
                 <artifactId>liveview-rest</artifactId>
                 <version>1.1.67</version>
                 <type>war</type>
-            </dependency>
+            </dependency>-->
             <dependency>
                 <groupId>com.acentic.cloudservices</groupId>
                 <artifactId>CasSession-web</artifactId>
