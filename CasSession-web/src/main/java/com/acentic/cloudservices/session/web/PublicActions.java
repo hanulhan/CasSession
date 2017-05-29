@@ -5,33 +5,20 @@
  */
 package com.acentic.cloudservices.session.web;
 
-import com.acentic.cloudservices.base.SystemMenu.beans.SERSystemMenu;
-import com.acentic.cloudservices.base.util.SystemRoleDef;
-import com.acentic.cloudservices.hotel.SystemHotel.beans.SystemHotelBean;
-import com.acentic.cloudservices.hotel.util.SpringHotelBeansDef;
-import com.acentic.cloudservices.session.user.userSession;
-import com.acentic.cloudservices.session.util.SpringSessionBeansDef;
 import com.acentic.cloudservices.user.SystemUser.beans.SystemUserBean;
 import com.acentic.cloudservices.user.SystemUser.beans.ser_SystemUser;
-import com.acentic.cloudservices.user.SystemUserGroup.beans.SystemUserGroupBean;
-import com.acentic.cloudservices.user.SystemUserMessage.beans.SystemUserMessageBean;
 import com.acentic.cloudservices.user.util.SpringUserBeansDef;
-import com.acentic.cloudservices.util.EMailUtil;
 import com.acentic.cloudservices.util.JsonStatus;
-import com.acentic.cloudservices.util.PasswordGeneration;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.I18nInterceptor;
 import org.apache.struts2.interceptor.SessionAware;
 import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.springframework.beans.BeansException;
