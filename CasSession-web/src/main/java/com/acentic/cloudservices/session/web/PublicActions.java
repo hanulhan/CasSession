@@ -66,7 +66,6 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
     private String logoutHeadline;
     private String logoutReLogin;
     
-    private SERLoggedInUser serLoggedInUser;
     
     
 
@@ -241,10 +240,6 @@ public class PublicActions extends ActionSupport implements SessionAware, Applic
 
     public void setLogoutReLogin(String logoutReLogin) {
         this.logoutReLogin = logoutReLogin;
-    }
-
-    public SERLoggedInUser getSerLoggedInUser() {
-        return serLoggedInUser;
     }
 
    

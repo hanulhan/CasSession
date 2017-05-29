@@ -73,22 +73,22 @@
     
     <!-- USER SESSION -->
     
-    <bean name="userSessionSettingsBean" class="com.acentic.cloudservices.session.util.userSessionSettings" scope="singleton">
+<!--    <bean name="userSessionSettingsBean" class="com.acentic.cloudservices.session.util.userSessionSettings" scope="singleton">
          <property name="webTimeOut" value="${SystemSettings.WebTimeOut}"/>
          <property name="sessionTempPath" value="${SystemSettings.SessionTempPath}"/>
-    </bean>    
+    </bean>    -->
     
-    <bean name="userSessionList" class="com.acentic.cloudservices.session.user.sessionUserOverview" scope="singleton"/>
+<!--    <bean name="userSessionList" class="com.acentic.cloudservices.session.user.sessionUserOverview" scope="singleton"/>-->
     
-    <import resource="classpath*:/spring/spring_session.xml"/>
-    <import resource="classpath*:/spring/spring_session_web.xml"/>
+<!--    <import resource="classpath*:/spring/spring_session.xml"/>
+    <import resource="classpath*:/spring/spring_session_web.xml"/>-->
 
     
-    <bean id="sessionActionClass" class="com.acentic.cloudservices.session.web.SessionActions" scope ="prototype">
+<!--    <bean id="sessionActionClass" class="com.acentic.cloudservices.session.web.SessionActions" scope ="prototype">
         <property name="userSessionBean" ref="userSessionBean"/>
         <property name="hotelListProxy" ref="bean_SystemHotelListProxy"/>
         <property name="userSessions" ref="userSessionList"/>
-    </bean>    
+    </bean>    -->
 
     <bean id="publicActionClass" class="com.acentic.cloudservices.session.web.PublicActions" scope ="prototype">
         <property name="casServer" value="${cas.server}"/>
