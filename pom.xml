@@ -768,7 +768,7 @@
         <profile>
             <id>Hellboy</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <system.tomcat.port>28443</system.tomcat.port>
@@ -825,8 +825,11 @@
         </profile>
         <profile>
             <id>Uli</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
-                <system.tomcat.port>288443</system.tomcat.port>
+                <system.tomcat.port>28443</system.tomcat.port>
                 <acs.server.context>CasSession-web</acs.server.context>
                 <liveview.supportemail>ulrich.hansen@acentic.com</liveview.supportemail>
 
